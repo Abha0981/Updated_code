@@ -37,6 +37,21 @@ Node *array_to_DLL(vector<int> &arr)
     return head;
 }
 
+Node *reverse(Node *head)
+{
+    Node *curr = head;
+    while(curr != nullptr)
+    {
+        Node *temp = curr->next;
+        curr->next = curr->back;
+        curr->back  = temp;
+
+        head = curr;
+        curr = temp;
+    }
+    return head;
+}
+
 int print(Node * head)
 {
     Node * temp = head;
@@ -55,6 +70,8 @@ int main()
     vector<int>arr = {1,3,4,5,3,3,6};
     Node * head = array_to_DLL(arr);
     print(head);
+    Node * rev = reverse(head);
+    print(rev);
     return 0;
 
 }
