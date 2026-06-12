@@ -52,6 +52,35 @@ Node *reverse(Node *head)
     return head;
 }
 
+Node *deleteHeadDLL(Node * head)
+{
+    if(head == NULL || head->next == NULL)
+    {
+        return NULL;
+    }
+    Node *prev = head;
+    head = head->next;
+    head->back = nullptr;
+    prev->next = nullptr;
+    delete prev;
+    return head;
+}
+
+Node * deltailDLL(Node * head)
+{
+
+    Node *temp = head;
+    while(temp->next!= NULL)
+    {
+        temp = temp->next;
+    }
+    Node* prev = temp->back;
+    temp->back = NULL;
+    prev->next = nullptr;
+    delete temp;
+    return head;
+}
+
 int print(Node * head)
 {
     Node * temp = head;
@@ -72,6 +101,8 @@ int main()
     print(head);
     Node * rev = reverse(head);
     print(rev);
+    Node * delhead = deleteHeadDLL(rev);
+    print(delhead);
+    Node * deltail = deltailDLL(delhead);
+    print(deltail);
     return 0;
-
-}
