@@ -3,7 +3,7 @@ using namespace std;
 
 class Node
 {
-    public:
+public:
     int data;
     Node *next;
     Node *back;
@@ -20,14 +20,13 @@ class Node
         next = nullptr;
         back = nullptr;
     }
-
 };
 
 Node *array_to_DLL(vector<int> &arr)
 {
     Node *head = new Node(arr[0]);
     Node *temp = head;
-    for(int i = 1; i<arr.size(); i++)
+    for (int i = 1; i < arr.size(); i++)
     {
         Node *curr = new Node(arr[i]);
         temp->next = curr;
@@ -40,11 +39,11 @@ Node *array_to_DLL(vector<int> &arr)
 Node *reverse(Node *head)
 {
     Node *curr = head;
-    while(curr != nullptr)
+    while (curr != nullptr)
     {
         Node *temp = curr->next;
         curr->next = curr->back;
-        curr->back  = temp;
+        curr->back = temp;
 
         head = curr;
         curr = temp;
@@ -52,9 +51,9 @@ Node *reverse(Node *head)
     return head;
 }
 
-Node *deleteHeadDLL(Node * head)
+Node *deleteHeadDLL(Node *head)
 {
-    if(head == NULL || head->next == NULL)
+    if (head == NULL || head->next == NULL)
     {
         return NULL;
     }
@@ -66,43 +65,85 @@ Node *deleteHeadDLL(Node * head)
     return head;
 }
 
-Node * deltailDLL(Node * head)
+Node *deltailDLL(Node *head)
 {
 
     Node *temp = head;
-    while(temp->next!= NULL)
+    while (temp->next != NULL)
     {
         temp = temp->next;
     }
-    Node* prev = temp->back;
+    Node *prev = temp->back;
     temp->back = NULL;
     prev->next = nullptr;
     delete temp;
     return head;
 }
 
-int print(Node * head)
+Node *delKthNode(Node *head, int k)
 {
-    Node * temp = head;
-    while(temp!= NULL)
+    int count = 0;
+    Node *temp = head;
+    if (head == nullptr)
     {
-        cout<<temp->data<<" ";
+        return nullptr;
+    }
+    while (temp != nullptr)
+    {
+        count++;
+        if (count == k)
+        {
+            break;
+        }
         temp = temp->next;
     }
-    cout<<endl;
+    Node *prev = temp->back;
+    Node *front = temp->next;
+    if (prev == nullptr && front != nullptr)
+    {
+        deleteHeadDLL(temp);
+    }
+    else if (front == nullptr && prev != nullptr)
+    {
+        deltailDLL(temp);
+    }
+    else if (prev == nullptr && front == nullptr)
+    {
+        return nullptr;
+    }
+
+    prev->next = front;
+    front->back = prev;
+    temp->next = nullptr;
+    temp->back = nullptr;
+    delete temp;
+    return head;
+}
+
+int print(Node *head)
+{
+    Node *temp = head;
+    while (temp != NULL)
+    {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
     return 0;
 }
 
-
 int main()
 {
-    vector<int>arr = {1,3,4,5,3,3,6};
-    Node * head = array_to_DLL(arr);
+    vector<int> arr = {1, 3, 4, 5, 3, 3, 6};
+    Node *head = array_to_DLL(arr);
     print(head);
-    Node * rev = reverse(head);
+    Node *rev = reverse(head);
     print(rev);
-    Node * delhead = deleteHeadDLL(rev);
+    Node *delhead = deleteHeadDLL(rev);
     print(delhead);
-    Node * deltail = deltailDLL(delhead);
+    Node *deltail = deltailDLL(delhead);
     print(deltail);
+    Node *delkth = delKthNode(deltail, 3);
+    print(delkth);
     return 0;
+}
