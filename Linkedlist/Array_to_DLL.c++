@@ -101,11 +101,13 @@ Node *delKthNode(Node *head, int k)
     Node *front = temp->next;
     if (prev == nullptr && front != nullptr)
     {
-        deleteHeadDLL(temp);
+        head = deleteHeadDLL(temp);
+        return head;
     }
     else if (front == nullptr && prev != nullptr)
     {
         deltailDLL(temp);
+        return head;
     }
     else if (prev == nullptr && front == nullptr)
     {
@@ -118,6 +120,30 @@ Node *delKthNode(Node *head, int k)
     temp->back = nullptr;
     delete temp;
     return head;
+}
+Node* delNode(Node* temp)
+{
+    Node* prev = temp->back;
+    Node* front = temp->next;
+
+    // tail node
+    if(front == nullptr)
+    {
+        prev->next = nullptr;
+        temp->back = nullptr;
+        delete temp;
+        return nullptr;
+    }
+
+    // middle node
+    prev->next = front;
+    front->back = prev;
+
+    temp->next = nullptr;
+    temp->back = nullptr;
+
+    delete temp;
+    return nullptr;
 }
 
 int print(Node *head)
@@ -145,5 +171,7 @@ int main()
     print(deltail);
     Node *delkth = delKthNode(deltail, 3);
     print(delkth);
+    Node  *delnode = delNode(delkth->next);
+    print(delnode);
     return 0;
 }
