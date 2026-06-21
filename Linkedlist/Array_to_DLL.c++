@@ -121,7 +121,7 @@ Node *delKthNode(Node *head, int k)
     delete temp;
     return head;
 }
-Node* delNode(Node* temp)
+void delNode(Node* temp)
 {
     Node* prev = temp->back;
     Node* front = temp->next;
@@ -132,7 +132,7 @@ Node* delNode(Node* temp)
         prev->next = nullptr;
         temp->back = nullptr;
         delete temp;
-        return nullptr;
+        return;
     }
 
     // middle node
@@ -143,7 +143,7 @@ Node* delNode(Node* temp)
     temp->back = nullptr;
 
     delete temp;
-    return nullptr;
+   
 }
 
 int print(Node *head)
@@ -163,6 +163,8 @@ int main()
     vector<int> arr = {1, 3, 4, 5, 3, 3, 6};
     Node *head = array_to_DLL(arr);
     print(head);
+    delNode(head->next->next);
+    print(head);
     Node *rev = reverse(head);
     print(rev);
     Node *delhead = deleteHeadDLL(rev);
@@ -171,7 +173,5 @@ int main()
     print(deltail);
     Node *delkth = delKthNode(deltail, 3);
     print(delkth);
-    Node  *delnode = delNode(delkth->next);
-    print(delnode);
     return 0;
 }
