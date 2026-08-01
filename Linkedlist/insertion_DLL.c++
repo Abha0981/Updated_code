@@ -1,17 +1,17 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-class Node{
-    public:
+class Node
+{
+public:
     int data;
-    Node* next;
-    Node* back;
-    
+    Node *next;
+    Node *back;
 
-    Node(int data1,Node* next1, Node*back1){
+    Node(int data1, Node *next1, Node *back1)
+    {
         data = data1;
         next = next1;
         back = back1;
-        
     }
 
     Node(int data2)
@@ -21,36 +21,95 @@ class Node{
         back = nullptr;
     }
 };
-Node* array_to_DLL(vector<int>arr){
-    Node* head = new Node(arr[0]);
-     Node* temp = head;
-    for(int i = 1; i<arr.size(); i++)
+Node *array_to_DLL(vector<int> arr)
+{
+    Node *head = new Node(arr[0]);
+    Node *temp = head;
+    for (int i = 1; i < arr.size(); i++)
     {
-        Node* curr = new Node(arr[i]);
+        Node *curr = new Node(arr[i]);
         temp->next = curr;
         curr->back = temp;
         temp = curr;
-
     }
     return head;
-
 }
-void print(Node* head)
+// insert after head
+Node *add_after_head(Node *head, int num)
 {
-    Node* temp = head;
-    while(temp != nullptr)
+    // Node *temp = head;
+    if (head->next == nullptr)
     {
-        cout<<temp->data<<" ";
+        Node *curr = new Node(num);
+        head->next = curr;
+        curr->back = head;
+        return head;
+    }
+    else
+    {
+        Node *curr = new Node(num);
+        curr->back = head;
+        curr->next = head->next;
+        head->next = curr;
+        return head;
+    }
+}
+// Node* insert_at_tail(Node*)
+
+Node *insert_at_tail(Node *head, int num)
+{
+    Node *temp = head;
+    if (head == nullptr)
+    {
+        Node *curr = new Node(num);
+        curr->next = nullptr;
+        curr->back = nullptr;
+        return curr;
+    }
+    else
+    {
+        while (temp->next != nullptr)
+        {
+            temp = temp->next;
+        }
+        Node *curr = new Node(num);
+        temp->next = curr;
+        curr->back = temp;
+        curr->next = nullptr;
+        return head;
+    }
+}
+// insertion at kth node after head
+Node* insert_at_kth_node(Node* head, int num, int k)
+{
+    
+}
+void print(Node *head)
+{
+    Node *temp = head;
+    while (temp != nullptr)
+    {
+        cout << temp->data << " ";
         temp = temp->next;
     }
-    cout<<endl;
+    cout << endl;
 }
 
-//Node* insert_at_tail(Node*)
 int main()
 {
-    vector<int>arr = {1,2,3,4,5};
-    Node* head = array_to_DLL(arr);
+    vector<int> arr = {1, 2, 3, 4, 5};
+    Node *head = array_to_DLL(arr);
+    cout << "Array to LinkesList" << endl;
     print(head);
+    int num = 90;
+    Node *head1 = add_after_head(head, num);
+    cout << "Insertion after head" << endl;
+    print(head1);
+    Node *head2 = insert_at_tail(head1, num);
+    cout << "Insertion after tail" << endl;
+    print(head2);
+    Node *head3 = insert_at_kth_node(head2, num, 4);
+    cout << "Insertion at kth node" << endl;
+    print(head3);
     return 0;
 }
