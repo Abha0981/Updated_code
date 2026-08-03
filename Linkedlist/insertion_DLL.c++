@@ -80,9 +80,51 @@ Node *insert_at_tail(Node *head, int num)
     }
 }
 // insertion at kth node after head
-Node* insert_at_kth_node(Node* head, int num, int k)
+Node *insert_at_kth_node(Node *head, int num, int k)
 {
     
+    if (head == nullptr)
+    {
+        Node *curr = new Node(num);
+        curr->next = nullptr;
+        curr->back = nullptr;
+        return curr;
+    }
+    int count = 0;
+    Node *temp = head;
+    while (temp != nullptr)
+    {
+        count++;
+        temp = temp->next;
+    }
+    int cnt = 0;
+    Node* temp1 = head;
+    while (temp1->next != nullptr)
+    {
+        cnt++;
+        if (cnt == k && cnt == 1)
+        {
+            return add_after_head(head, num);
+        }
+        else if (count == k && count == cnt)
+        {
+            return insert_at_tail(head, num);
+        }
+        else
+        {
+            if (cnt == k)
+            {
+                Node *front = temp1->next;
+                Node *curr = new Node(num);
+                curr->next = front;
+                curr->back = temp1;
+                temp1->next = curr;
+                front -> back = curr;
+                return head;
+            }
+        }
+        temp1 = temp1->next;
+    }
 }
 void print(Node *head)
 {
@@ -108,7 +150,7 @@ int main()
     Node *head2 = insert_at_tail(head1, num);
     cout << "Insertion after tail" << endl;
     print(head2);
-    Node *head3 = insert_at_kth_node(head2, num, 4);
+    Node *head3 = insert_at_kth_node(head2, num, 3);
     cout << "Insertion at kth node" << endl;
     print(head3);
     return 0;
