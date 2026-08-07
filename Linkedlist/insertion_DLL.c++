@@ -147,7 +147,17 @@ Node *given_node(Node *head, int num)
         Node *curr = new Node(num);
         temp->next = curr;
         curr->back = temp;
-        return head;
+        curr->next = front;
+        front->back = curr;
+        if(prev == nullptr)
+        {
+            return head;
+        }
+        else
+        {
+            return prev->back;
+        }
+        
     
 }
 
