@@ -82,7 +82,7 @@ Node *insert_at_tail(Node *head, int num)
 // insertion at kth node after head
 Node *insert_at_kth_node(Node *head, int num, int k)
 {
-    
+
     if (head == nullptr)
     {
         Node *curr = new Node(num);
@@ -98,7 +98,7 @@ Node *insert_at_kth_node(Node *head, int num, int k)
         temp = temp->next;
     }
     int cnt = 0;
-    Node* temp1 = head;
+    Node *temp1 = head;
     while (temp1->next != nullptr)
     {
         cnt++;
@@ -119,13 +119,38 @@ Node *insert_at_kth_node(Node *head, int num, int k)
                 curr->next = front;
                 curr->back = temp1;
                 temp1->next = curr;
-                front -> back = curr;
+                front->back = curr;
                 return head;
             }
         }
         temp1 = temp1->next;
     }
 }
+
+// insert at given node
+Node *given_node(Node *head, int num)
+{
+    Node *temp = head;
+    Node *front = temp->next;
+    Node *prev = temp->back;
+    
+    //head is tail
+    if(front == nullptr)
+    {
+        Node *curr = new Node(num);
+        temp->next = curr;
+        curr->back = temp;
+        curr->next = nullptr;
+        return head;   
+    }
+        //middle
+        Node *curr = new Node(num);
+        temp->next = curr;
+        curr->back = temp;
+        return head;
+    
+}
+
 void print(Node *head)
 {
     Node *temp = head;
@@ -144,6 +169,9 @@ int main()
     cout << "Array to LinkesList" << endl;
     print(head);
     int num = 90;
+    Node *h1 = given_node(head->next->next, num);
+    cout<<"Insertion at given node"<<endl;
+    print(h1);
     Node *head1 = add_after_head(head, num);
     cout << "Insertion after head" << endl;
     print(head1);
