@@ -35,15 +35,46 @@ Node *array_to_dll(vector<int> arr)
     }
     return head;
 }
+
+// insert before head
+Node *insert_before_head(Node *head, int num)
+{
+    if(head == nullptr)
+    {
+        Node *curr = new Node(num);
+        head = curr;
+        return head;
+    }
+    else
+    {
+        Node *temp = head;
+        Node *curr = new Node(num);
+        temp->back = curr;
+        curr->next = temp;
+        curr->back = nullptr;
+        head = curr;
+        return head;
+    }
+    Node *temp = head;
+    Node *curr = new Node(num);
+    temp->back = curr;
+    curr->next = temp;
+    curr->back = nullptr;
+    head = curr;
+    return head;
+}
+// insert before tail
+// insert before kth node
+//  insert before given node
 void print(Node *head)
 {
-    Node* temp = head;
-    while(temp != nullptr)
+    Node *temp = head;
+    while (temp != nullptr)
     {
-        cout<<temp->data<<" ";
+        cout << temp->data << " ";
         temp = temp->next;
     }
-    cout<<endl;
+    cout << endl;
 }
 
 int main()
@@ -52,5 +83,9 @@ int main()
     Node *head = array_to_dll(arr);
     cout << "DLL" << endl;
     print(head);
+    int num = 90;
+    Node *head1 = insert_before_head(head, num);
+    cout << "insertion before head" << endl;
+    print(head1);
     return 0;
 }
