@@ -77,7 +77,7 @@ Node *insert_before_tail(Node *head, int num)
     temp->back = curr;
     curr->next = temp;
     curr->back = prev;
-    if(prev != nullptr)
+    if (prev != nullptr)
     {
         prev->next = curr;
     }
@@ -88,6 +88,50 @@ Node *insert_before_tail(Node *head, int num)
     return head;
 }
 // insert before kth node
+
+Node *insert_before_kth_node(Node *head, int num, int k)
+{
+    Node *temp1 = head;
+    int count1 = 0;
+    while (temp1 != nullptr)
+    {
+        count1++;
+        temp1 = temp1->next;
+    }
+    if (head == nullptr)
+    {
+        return nullptr;
+    }
+    if (k <= 0 || k > count1)
+    return head;
+
+    Node *temp = head;
+    int count = 0;
+    while (temp != nullptr)
+    {
+        count++;
+      
+        if (count == 1 && k == count)
+        {
+            return insert_before_head(head, num);
+        }
+        else if (count == k && count1 == count)
+        {
+            return insert_before_tail(head, num);
+        }
+        else if (count == k)
+        {
+            Node *prev = temp->back;
+            Node *curr = new Node(num);
+            temp->back = curr;
+            curr->next = temp;
+            curr->back = prev;
+            prev->next = curr;
+        }
+        temp = temp->next;
+    }
+    return head;
+}
 //  insert before given node
 void print(Node *head)
 {
@@ -113,5 +157,8 @@ int main()
     Node *head2 = insert_before_tail(head1, num);
     cout << "insertion before tail" << endl;
     print(head2);
+    Node *head3 = insert_before_kth_node(head2, num, 4);
+    cout << "Insertion before Kth node" << endl;
+    print(head3);
     return 0;
 }
