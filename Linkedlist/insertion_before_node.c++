@@ -91,34 +91,35 @@ Node *insert_before_tail(Node *head, int num)
 
 Node *insert_before_kth_node(Node *head, int num, int k)
 {
-    Node *temp1 = head;
-    int count1 = 0;
-    while (temp1 != nullptr)
-    {
-        count1++;
-        temp1 = temp1->next;
-    }
+    // Node *temp1 = head;
+    // int count1 = 0;
+    // while (temp1 != nullptr)
+    // {
+    //     count1++;
+    //     temp1 = temp1->next;
+    // }
     if (head == nullptr)
     {
         return nullptr;
     }
-    if (k <= 0 || k > count1)
-    return head;
+    // if (k <= 0 || k > count1)
+    //     return head;
 
     Node *temp = head;
     int count = 0;
     while (temp != nullptr)
     {
         count++;
-      
-        if (count == 1 && k == count)
+
+        if (count == 1 && k == 1 )
         {
             return insert_before_head(head, num);
+            break;
         }
-        else if (count == k && count1 == count)
-        {
-            return insert_before_tail(head, num);
-        }
+        // else if (count == k && count1 == count)
+        // {
+        //     return insert_before_tail(head, num);
+        // }
         else if (count == k)
         {
             Node *prev = temp->back;
@@ -127,12 +128,23 @@ Node *insert_before_kth_node(Node *head, int num, int k)
             curr->next = temp;
             curr->back = prev;
             prev->next = curr;
+            break;
         }
         temp = temp->next;
     }
     return head;
 }
+
 //  insert before given node
+Node *insert_before_given_node(Node *head, int num)
+{
+    Node *temp = head;
+    Node *prev = temp->back;
+    Node *curr = new Node(num, temp, prev);
+    prev->next = curr;
+    head = prev;
+    return head;
+}
 void print(Node *head)
 {
     Node *temp = head;
@@ -151,6 +163,9 @@ int main()
     cout << "DLL" << endl;
     print(head);
     int num = 90;
+    Node *head4 = insert_before_given_node(head->next->next, num);
+    cout << "Insertion before given node" << endl;
+    print(head4);
     Node *head1 = insert_before_head(head, num);
     cout << "insertion before head" << endl;
     print(head1);
