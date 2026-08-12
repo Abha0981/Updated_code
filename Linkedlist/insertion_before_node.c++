@@ -136,14 +136,14 @@ Node *insert_before_kth_node(Node *head, int num, int k)
 }
 
 //  insert before given node
-Node *insert_before_given_node(Node *head, int num)
+void insert_before_given_node(Node *target, int num)
 {
-    Node *temp = head;
+    Node *temp = target;
     Node *prev = temp->back;
     Node *curr = new Node(num, temp, prev);
     prev->next = curr;
-    head = prev;
-    return head;
+    temp->back = curr;
+
 }
 void print(Node *head)
 {
@@ -163,9 +163,9 @@ int main()
     cout << "DLL" << endl;
     print(head);
     int num = 90;
-    Node *head4 = insert_before_given_node(head->next->next, num);
+    insert_before_given_node(head->next->next, num);
     cout << "Insertion before given node" << endl;
-    print(head4);
+    print(head);
     Node *head1 = insert_before_head(head, num);
     cout << "insertion before head" << endl;
     print(head1);
