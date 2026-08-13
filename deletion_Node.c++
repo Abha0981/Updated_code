@@ -100,7 +100,7 @@ int main()
     vector<int> arr = {3, 42, 5, 3, 23, 3, 12, 4, 45};
     Node *head = array_to_linkedlist(arr);
     print(head);
-    head = del_node_position(head, 6); // deletion of node by its position
+    head = del_node_position(head, 9); // deletion of node by its position
     print(head);
     head = del_node_element(head, 3); // deleteion of node by its value
     print(head);

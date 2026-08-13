@@ -99,7 +99,7 @@ Node *delKthNode(Node *head, int k)
     }
     Node *prev = temp->back;
     Node *front = temp->next;
-    if (prev == nullptr && front != nullptr)
+    if (k ==1 )
     {
         head = deleteHeadDLL(temp);
         return head;
@@ -171,7 +171,8 @@ int main()
     print(delhead);
     Node *deltail = deltailDLL(delhead);
     print(deltail);
-    Node *delkth = delKthNode(deltail, 3);
+    Node *delkth = delKthNode(deltail, 1);
+    cout<<"Kth deletion"<<endl;
     print(delkth);
     return 0;
 }

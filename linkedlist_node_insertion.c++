@@ -58,6 +58,19 @@ Node * insert_tail(Node* head, int val)
     temp->next = newnnode;
     return head;
 }
+Node* reverse(Node* head)
+{
+    Node* temp = head;
+    Node* prev = nullptr;
+    while(temp != nullptr)
+    {
+        Node* front = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = front;
+    }
+    return prev;
+}
 int main()
 {
     vector<int>arr = {3,34,4,5,6,62};
@@ -66,6 +79,9 @@ int main()
     head = insert_head(head,100); //insertion of new node at head
     print(head);
     head = insert_tail(head, 100); //insertion of new node at tail
+    print(head);
+    head = reverse(head); //reversing the linkedlist
+    cout<<"Rversed linkedlist is : "<<endl;
     print(head);
     return 0;
 }
