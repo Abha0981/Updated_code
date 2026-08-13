@@ -134,33 +134,32 @@ Node *given_node(Node *head, int num)
 {
     Node *temp = head;
     Node *front = temp->next;
-    Node *prev = temp->back;
     
-    //head is tail
+    // Find the actual head by traversing backwards
+    Node *actual_head = temp;
+    while (actual_head->back != nullptr)
+    {
+        actual_head = actual_head->back;
+    }
+    
+    // Case: inserting at the tail (node is the last node)
     if(front == nullptr)
     {
         Node *curr = new Node(num);
         temp->next = curr;
         curr->back = temp;
         curr->next = nullptr;
-        return head;   
+        return actual_head;   
     }
-        //middle
-        Node *curr = new Node(num);
-        temp->next = curr;
-        curr->back = temp;
-        curr->next = front;
-        front->back = curr;
-        if(prev == nullptr)
-        {
-            return head;
-        }
-        else
-        {
-            return prev->back; 
-        }
-        
     
+    // Case: inserting in the middle
+    Node *curr = new Node(num);
+    temp->next = curr;
+    curr->back = temp;
+    curr->next = front;
+    front->back = curr;
+    
+    return actual_head;
 }
 
 void print(Node *head)
@@ -181,9 +180,9 @@ int main()
     cout << "Array to LinkesList" << endl;
     print(head);
     int num = 90;
-    // Node *h1 = given_node(head->next->next, num);
-    // cout<<"Insertion at given node"<<endl;
-    // print(h1);
+    Node *h1 = given_node(head->next->next, num);
+    cout<<"Insertion at given node"<<endl;
+    print(h1);
     Node *head1 = add_after_head(head, num);
     cout << "Insertion after head" << endl;
     print(head1);
