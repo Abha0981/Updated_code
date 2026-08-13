@@ -97,7 +97,7 @@ Node *insert_at_kth_node(Node *head, int num, int k)
         count++;
         temp = temp->next;
     }
-    int cnt = 0;
+    int cnt = 1;
     Node *temp1 = head;
     while (temp1->next != nullptr)
     {
@@ -105,10 +105,12 @@ Node *insert_at_kth_node(Node *head, int num, int k)
         if (cnt == k && cnt == 1)
         {
             return add_after_head(head, num);
+            break;
         }
-        else if (count == k && count == cnt)
+        else if (cnt == k && cnt == count)
         {
             return insert_at_tail(head, num);
+            break;
         }
         else
         {
@@ -179,16 +181,16 @@ int main()
     cout << "Array to LinkesList" << endl;
     print(head);
     int num = 90;
-    Node *h1 = given_node(head->next->next, num);
-    cout<<"Insertion at given node"<<endl;
-    print(h1);
+    // Node *h1 = given_node(head->next->next, num);
+    // cout<<"Insertion at given node"<<endl;
+    // print(h1);
     Node *head1 = add_after_head(head, num);
     cout << "Insertion after head" << endl;
     print(head1);
     Node *head2 = insert_at_tail(head1, num);
     cout << "Insertion after tail" << endl;
     print(head2);
-    Node *head3 = insert_at_kth_node(head2, num, 3);
+    Node *head3 = insert_at_kth_node(head2, 11, 7);
     cout << "Insertion at kth node" << endl;
     print(head3);
     return 0;
