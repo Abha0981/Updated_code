@@ -36,26 +36,24 @@ Node *array_to_DLL(vector<int> &arr)
     return head;
 }
 
-Node *deleteHeadDLL(Node *head)
-{
-    if (head == NULL || head->next == NULL)
-    {
-        return NULL;
-    }
-    Node *prev = head;
-    head = head->next;
-    head->back = nullptr;
-    prev->next = nullptr;
-    delete prev;
-    return head;
-}
-
 Node *deltargetNode(Node *head, int target)
 {
 
-    if (head == nullptr)
+    if (head == NULL)
     {
-        return nullptr;
+        return NULL;
+    }
+    if (head->next == NULL)
+    {
+        if (head->data == target)
+        {
+            delete head;
+            return NULL;
+        }
+        else
+        {
+            return head;
+        }
     }
 
     Node *temp = head;
@@ -67,9 +65,11 @@ Node *deltargetNode(Node *head, int target)
 
         if (temp->data == target && prev == nullptr)
         {
-            head = deleteHeadDLL(temp);
-            temp = front;
-            // return head;
+            head = temp->next;
+            head->back = nullptr;
+            delete temp;
+            temp = head;
+            continue;
         }
 
         if (temp->data == target && prev != nullptr && front != nullptr)
@@ -84,16 +84,16 @@ Node *deltargetNode(Node *head, int target)
 
         if (temp->data == target && front == nullptr)
         {
-            temp->back = NULL;
+            temp->back = nullptr;
             prev->next = nullptr;
             delete temp;
             temp = front;
             return head;
         }
-        temp = temp->next;
+        temp = front;
     }
 
-    // return head;
+    return head;
 }
 int print(Node *head)
 {
@@ -109,10 +109,10 @@ int print(Node *head)
 
 int main()
 {
-    vector<int> arr = { 3, 1};
+    vector<int> arr = {2, 5, 2, 4, 8, 10, 2, 2};
     Node *head = array_to_DLL(arr);
     print(head);
-    Node *deltarget = deltargetNode(head, 1);
+    Node *deltarget = deltargetNode(head, 2);
     cout << "Target deletion" << endl;
     print(deltarget);
     return 0;
